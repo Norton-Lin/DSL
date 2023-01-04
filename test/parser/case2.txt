@@ -1,0 +1,45 @@
+Basic:
+    Name: robot
+    Database: True
+Var:
+    $name Text "用户"
+    $billing Real 0.0
+
+State: Begin
+    Default:
+        Goto Hello
+
+State: Hello Logined
+    Speak: "test1" + $name + $billing + $transactions
+    Service: Length < 20
+    Service: Length > 10
+    Service: Length = 5
+    Service: Length >= 0
+    Service: Length <= 200
+        Goto Begin
+    Default:
+        Exit
+    Wait: 0
+    Wait: 500
+        Update: $transactions Add 1
+
+Var:
+    $transactions Int 0
+
+State: Goodbye Logined
+    Service: Contain: "goodbye"
+        Update: $billing Set 0
+    Service: "Test"
+        Speak: $name + "timeout" + Input
+        Update: $billing Sub -1
+        Update: $name Set Input
+    Service: Type Int
+        Update: $transactions Add Input
+        Update: $billing Add Input
+    Service: Type Real
+        Update: $billing Sub Input
+    Default:
+    Wait: 0
+        Goto Begin
+    Wait: 20
+        Goto Hello

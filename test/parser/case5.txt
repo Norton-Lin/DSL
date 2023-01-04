@@ -1,0 +1,8 @@
+Basic:
+    Name:robot
+    Database:True
+State: Begin
+    Service: Type Int
+        Exit
+    Wait: 5
+        Speak: Input

@@ -1,0 +1,8 @@
+Basic:
+    Name:robot
+    Database:True
+State: Begin
+    Default:"不知道说啥，给大家拜个早年"
+        Exit
+    Wait: 5
+        Speak: Input

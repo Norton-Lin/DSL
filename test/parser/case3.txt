@@ -1,0 +1,8 @@
+Basic:
+    Name:robot
+    Database:True
+State: Begin
+    Default:
+        Speak: "我是林志"
+        Exit
+        Speak: "我不是林志"

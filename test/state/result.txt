@@ -1,0 +1,6 @@
+['Basic:', ['Name:', 'robot'], ['Database:', 'True']]
+['Begin', 'Hello', 'Goodbye']
+[[], [Speak "test1" + $name + $billing + $transactions], []]
+[[], [Length < 20: , Length > 10: , Length = 5: , Length >= 0: , Length <= 200: Goto 0], [Contain goodbye: Update billing Set 0.0, Equal Test: Speak $name + "timeout" + Input; Update billing Sub -1.0; Update name Set Input, Type Int: Update transactions Add Input; Update billing Add Input, Type Real: Update billing Sub Input]]
+[[Goto 1], [Exit], []]
+[{}, {0: [], 500: [Update transactions Add 1.0]}, {0: [Goto 0], 20: [Goto 1]}]

@@ -1,0 +1,11 @@
+Basic:
+    Name:robot
+    Database:True
+State: Begin
+    Default:
+
+State: Hello
+    Default:
+
+State: Hello
+    Default:

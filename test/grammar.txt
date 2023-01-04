@@ -1,0 +1,79 @@
+Basic:
+    Name: robot
+    Database: True
+
+Var:
+    $billing Real 0
+    $name Text "用户"
+    $trans Int 0
+
+State: Begin
+    Speak: "你好，" + $name
+    Speak: "请输入 余额 以查看余额，输入 改名 以修改名字，输入 投诉 来投诉，输入 退出 以结束会话"
+    Service: Contain: "余额"
+        Goto Billing
+    Service: Contain: "改名"
+        Goto Rename
+    Service: "投诉"
+        Goto Complain
+    Service: "退出"
+        Exit
+    Default:
+    Wait: 60
+        Speak: "您已经很久没有操作了，即将于30秒后退出"
+    Wait: 90
+        Exit
+
+State: Billing Logined
+    Speak: $name + "，您的余额为" + $billing
+    Speak: "请输入 充值 以进入充值菜单，输入 返回 以返回主菜单"
+    Service: Contain: "充值"
+        Goto Recharge
+    Service: "返回"
+        Goto Begin
+    Default:
+    Wait: 60
+        Speak: "您已经很久没有操作了，即将返回主菜单"
+        Goto Begin
+
+State: Recharge Logined
+    Speak: "请输入您的充值金额，金额必须为小数或者整数"
+    Service: Type Real
+        Speak: "您的充值金额为，" + Input
+        Update: $billing Add Input
+        Update: $trans Add 1
+        Goto Billing
+    Service: "返回"
+        Goto Begin
+    Default:
+        Speak:"输入错误"
+    Wait: 60
+        Speak: "您已经很久没有操作了，即将返回主菜单"
+        Goto Begin
+
+State: Complain
+    Speak: "请输入您的建议，不超过200个字符"
+    Service: "返回"
+        Goto Begin
+    Service: Length <= 200
+        Speak: "感谢您的建议"
+        Exit
+    Default:
+        Speak: "输入过长"
+    Wait: 60
+        Speak: "您已经很久没有操作了，即将返回主菜单"
+        Goto Begin
+
+State: Rename Logined
+    Speak: "请输入新用户名，不超过30个字符"
+    Service: "返回"
+        Goto Begin
+    Service: Length <= 30
+        Speak: "您的新用户名为" + Input
+        Update: $name Set Input
+        Goto Begin
+    Default:
+        Speak: "输入过长"
+    Wait: 60
+        Speak: "您已经很久没有操作了，即将返回主菜单"
+        Goto Begin
